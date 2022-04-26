@@ -1,0 +1,25 @@
+.User-container {
+    display: grid;
+    justify-self: center;
+
+  }
+  .User-item1 {
+    grid-column: 1 / 4;
+  }
+  
+  .User-item2 {
+    grid-row: 2 / 4;
+  }
+  
+  .User-item3 {
+    grid-column: 2 / span 2;
+  }
+
+  .User-container{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 143vh;
+    margin-left: -246px;
+    font-family: 'Montserrat', sans-serif;
+}
