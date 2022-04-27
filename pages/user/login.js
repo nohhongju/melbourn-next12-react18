@@ -1,76 +1,110 @@
 import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {styled} from '@mui/material/styles';
-import {purple} from '@mui/material/colors';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const BootstrapButton = styled(Button)({
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: 16,
-    padding: '6px 12px',
-    border: '1px solid',
-    lineHeight: 1.5,
-    backgroundColor: '#0063cc',
-    borderColor: '#0063cc',
-    fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"'
-    ].join(','),
-    '&:hover': {
-        backgroundColor: '#0069d9',
-        borderColor: '#0062cc',
-        boxShadow: 'none'
-    },
-    '&:active': {
-        boxShadow: 'none',
-        backgroundColor: '#0062cc',
-        borderColor: '#005cbf'
-    },
-    '&:focus': {
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)'
-    }
-});
-const ColorButton = styled(Button)(({theme}) => ({
-    color: theme
-        .palette
-        .getContrastText(purple[500]),
-    backgroundColor: purple[500],
-    '&:hover': {
-        backgroundColor: purple[700]
-    }
-}));
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
-export default function MaterialUIPickers() {
-    const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
+const theme = createTheme();
 
-    const handleChange = (newValue) => {
-        setValue(newValue);
-    };
+export default function SignIn() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
 
-    return (
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Stack spacing={3}>
-                <TextField id="outlined-basic" label="USERID"/>
-                <TextField id="outlined-basic-2" label="PASSWORD"/>
-            </Stack>
-            <Stack spacing={2} direction="row" style={{marginTop:"20px", float: "right"}}>
-                <ColorButton variant="contained" style={{width:"200px"}}>로그인</ColorButton>
-                <BootstrapButton variant="contained" disableRipple="disableRipple" style={{width:"200px"}}>
-                    취소
-                </BootstrapButton>
-            </Stack>
-        </LocalizationProvider>
-    );
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            로그인
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="사용자ID"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="비밀번호"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="로그인정보저장"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              전송
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
+    </ThemeProvider>
+  );
 }
